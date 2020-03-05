@@ -3,6 +3,7 @@ import sqlite3
 import gensim
 import nltk
 import time
+import pickle
 # nltk.download('stopwords')
 # nltk.download('wordnet')
 
@@ -10,15 +11,17 @@ import numpy as np
 np.random.seed(59)
 
 DB_NAME = 'all-the-news.db'
-PROCESSED_NAME = 'processed.csv'
+PROCESSED_CSV = 'processed.csv'
+DICTIONARY = 'dictionary.bin'
+BOW_CORPUS = 'bag-of-words.bin'
+TFIDF_CORPUS = 'tf-idf.bin'
 
 def loadData():
   start_time = time.time()
 
-  df = None
   is_processed = False
   try:
-    df = pd.read_csv(PROCESSED_NAME)
+    df = pd.read_csv(PROCESSED_CSV)
     is_processed = True
   except:
     conn = sqlite3.connect(DB_NAME)
@@ -50,7 +53,7 @@ def preProcess(df, column, is_processed=False):
       processed_texts.append(' '.join(processed_text))
     
     df[column] = processed_texts
-    df[column].to_csv(PROCESSED_NAME)
+    df[column].to_csv(PROCESSED_CSV)
 
   print('Pre-processing: {0:.4f} seconds'.format(time.time() - start_time))
 
@@ -58,13 +61,36 @@ def extractFeatures(df, column):
   start_time = time.time()
 
   texts = [ text.split() for text in df[column] if type(text) is str ]
-  dictionary = gensim.corpora.Dictionary(texts)
-  dictionary.filter_extremes(no_below=15, no_above=0.5, keep_n=100000)
 
-  bow_corpus = [dictionary.doc2bow(doc) for doc in texts]
+  try:
+    dictionary = gensim.corpora.Dictionary.load(DICTIONARY)
+  except:
+    dictionary = gensim.corpora.Dictionary(texts)
+    dictionary.filter_extremes(no_below=15, no_above=0.5, keep_n=100000)
+    dictionary.save(DICTIONARY)
 
-  tfidf = gensim.models.TfidfModel(bow_corpus)
-  tfidf_corpus = tfidf[bow_corpus]
+  try:
+    f = open(BOW_CORPUS, 'rb')
+    bow_corpus = pickle.load(f)
+  except:
+    bow_corpus = [dictionary.doc2bow(doc) for doc in texts]
+
+    f = open(BOW_CORPUS, 'wb')
+    pickle.dump(bow_corpus, f)
+  finally:
+    f.close()
+  
+  try:
+    f = open(TFIDF_CORPUS, 'rb')
+    tfidf_corpus = pickle.load(f)
+  except:
+    tfidf = gensim.models.TfidfModel(bow_corpus)
+    tfidf_corpus = tfidf[bow_corpus]
+
+    f = open(TFIDF_CORPUS, 'wb')
+    pickle.dump(tfidf_corpus, f)
+  finally:
+    f.close()
 
   print('Feature extraction: {0:.4f} seconds'.format(time.time() - start_time))
 
