@@ -15,11 +15,11 @@ PROCESSED_CSV = 'processed.csv'
 DICTIONARY = 'dictionary.bin'
 BOW_CORPUS = 'bag-of-words.bin'
 TFIDF_CORPUS = 'tf-idf.bin'
+LDA_MODEL = 'lda-model.bin'
 
 def loadData():
   start_time = time.time()
 
-  is_processed = False
   try:
     df = pd.read_csv(PROCESSED_CSV)
     is_processed = True
@@ -28,6 +28,7 @@ def loadData():
     df = pd.read_sql_query('SELECT title, content FROM longform WHERE content IS NOT NULL', conn)
     conn.commit()
     conn.close()
+    is_processed = False
   
   print('Data loading: {0:.4f} seconds'.format(time.time() - start_time))
   
@@ -39,7 +40,7 @@ def preProcess(df, column, is_processed=False):
   if not is_processed:
     stop_words = gensim.parsing.preprocessing.STOPWORDS
     simple_preprocess = gensim.utils.simple_preprocess
-    stemmer = nltk.PorterStemmer()
+    stemmer = nltk.SnowballStemmer('english')
     lemmatizer = nltk.WordNetLemmatizer()
 
     processed_texts = []
@@ -99,13 +100,17 @@ def extractFeatures(df, column):
 def generateLDA(corpus, dictionary):
   start_time = time.time()
 
-  model = gensim.models.LdaMulticore(
-    bow_corpus,
-    num_topics=20,
-    id2word=dictionary,
-    workers=2
-  )
-
+  try:
+    model = gensim.models.LdaMulticore.load(LDA_MODEL)
+  except:
+    model = gensim.models.LdaMulticore(
+      corpus,
+      num_topics=50,
+      id2word=dictionary,
+      workers=2
+    )
+    model.save(LDA_MODEL)
+  
   print('LDA generating: {0:.4f} seconds'.format(time.time() - start_time))
   
   return model
@@ -114,10 +119,6 @@ news_df, is_processed = loadData()
 preProcess(news_df, 'content', is_processed)
 dictionary, bow_corpus, tfidf_corpus = extractFeatures(news_df, 'content')
 
-lda_model_bow = generateLDA(bow_corpus, dictionary)
-for idx, topic in lda_model_bow.print_topics(-1):
-  print('Topic {}: {}\n'.format(idx, topic))
-
-lda_model_tfidf = generateLDA(tfidf_corpus, dictionary)
-for idx, topic in lda_model_tfidf.print_topics(-1):
+lda_model = generateLDA(tfidf_corpus, dictionary)
+for idx, topic in lda_model.print_topics(-1):
   print('Topic {}: {}\n'.format(idx, topic))
