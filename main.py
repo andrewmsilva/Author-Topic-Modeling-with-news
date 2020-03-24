@@ -11,7 +11,7 @@ from nltk import SnowballStemmer, WordNetLemmatizer
 from gensim.parsing.preprocessing import STOPWORDS
 from gensim.utils import simple_preprocess
 from gensim.corpora import Dictionary
-from gensim.models import TfidfModel, LdaMulticore
+from gensim.models import TfidfModel, AuthorTopicModel
 
 import numpy as np
 np.random.seed(59)
@@ -143,19 +143,18 @@ def extractFeatures(documents, dictionary):
   printExecutionTime(start_time)
   return tfidf_corpus
 
-def generateLDA(corpus, dictionary, authors):
-  print('Generating topic model...')
+def generateAuthorTopicModel(corpus, dictionary, authors):
+  print('Generating author-topic model...')
   start_time = time()
 
   try:
-    model = LdaMulticore.load(MODEL_FILE)
+    model = AuthorTopicModel.load(MODEL_FILE)
   except:
-    model = LdaMulticore(
+    model = AuthorTopicModel(
       corpus,
       num_topics=20,
       id2word=dictionary,
-      workers=4
-      #author2doc=authors
+      author2doc=authors
     )
     model.save(MODEL_FILE)
   
@@ -167,7 +166,11 @@ processed_news = preProcess(news)
 
 dictionary = extractDictionary(processed_news)
 tfidf_corpus = extractFeatures(processed_news, dictionary)
-model = generateLDA(tfidf_corpus, dictionary, sources)
+
+model = generateAuthorTopicModel(tfidf_corpus, dictionary, sources)
 
 for idx, topic in model.print_topics(-1):
   print('Topic {}: {}\n'.format(idx, topic))
+
+author_vecs = [ model.get_author_topics(author) for author in model.id2author.values() ]
+print(author_vecs)
