@@ -45,7 +45,7 @@ def loadData():
     news = load(news_file)
   except:
     conn = connect(DB_NAME)
-    df = read_sql_query('SELECT publication, year, content FROM longform WHERE content != "" AND content IS NOT NULL', conn)
+    df = read_sql_query('SELECT publication, year, content FROM longform WHERE content != "" AND content IS NOT NULL AND publication != "" AND publication IS NOT NULL', conn)
     conn.commit()
     conn.close()
     
@@ -87,7 +87,6 @@ def preProcess(docs):
     processed_docs = load(f)
   except:
     stop_words = STOPWORDS
-    simple_preprocess = simple_preprocess
     stemmer = SnowballStemmer('english')
     lemmatizer = WordNetLemmatizer()
 
@@ -151,7 +150,7 @@ def generateAuthorTopicModel(corpus, dictionary, authors):
     model = AuthorTopicModel.load(MODEL_FILE)
   except:
     model = AuthorTopicModel(
-      corpus,
+      corpus.corpus,
       num_topics=20,
       id2word=dictionary,
       author2doc=authors
@@ -161,16 +160,20 @@ def generateAuthorTopicModel(corpus, dictionary, authors):
   printExecutionTime(start_time)
   return model
 
-sources, years, news = loadData()
-processed_news = preProcess(news)
+if __name__ == '__main__':
+  sources, years, news = loadData()
+  processed_news = preProcess(news)
+  del news
 
-dictionary = extractDictionary(processed_news)
-tfidf_corpus = extractFeatures(processed_news, dictionary)
+  dictionary = extractDictionary(processed_news)
+  tfidf_corpus = extractFeatures(processed_news, dictionary)
 
-model = generateAuthorTopicModel(tfidf_corpus, dictionary, sources)
+  model = generateAuthorTopicModel(tfidf_corpus, dictionary, sources)
 
-for idx, topic in model.print_topics(-1):
-  print('Topic {}: {}\n'.format(idx, topic))
+  print('Topics')
+  for idx, topic in model.print_topics(-1):
+    print('Topic {}: {}'.format(idx, topic))
 
-author_vecs = [ model.get_author_topics(author) for author in model.id2author.values() ]
-print(author_vecs)
+  print('\nAuthors')
+  for author in model.id2author.values():
+    print('{}: {}'.format(author, model.get_author_topics(author)))

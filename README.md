@@ -15,46 +15,48 @@ Completed in 69.2948 seconds
 Extracting features...
 Completed in 43.9467 seconds
 
-Generating topic model...
-Completed in 190.7270 seconds
+Generating author-topic model...
+Completed in 459.6195 seconds
 
-Topic 0: 0.022*"north" + 0.020*"china" + 0.012*"reuter" + 0.010*"south" + 0.009*"news" + 0.008*"test" + 0.007*"militari" + 0.005*"launch" + 0.005*"unit" + 0.005*"weapon"
+Topics
+Topic 0: 0.001*"like" + 0.001*"year" + 0.001*"compani" + 0.001*"new" + 0.001*"peopl" + 0.001*"experi" + 0.001*"time" + 0.001*"way" + 0.001*"work" + 0.001*"go"
+Topic 1: 0.011*"like" + 0.010*"peopl" + 0.008*"percent" + 0.008*"clinton" + 0.008*"polit" + 0.008*"american" + 0.007*"think" + 0.007*"state" + 0.006*"way" + 0.006*"time"
+Topic 2: 0.001*"futur" + 0.001*"peopl" + 0.001*"compani" + 0.001*"like" + 0.001*"year" + 0.001*"new" + 0.001*"group" + 0.001*"world" + 0.001*"work" + 0.001*"way"
+Topic 3: 0.001*"stori" + 0.001*"audienc" + 0.001*"like" + 0.001*"season" + 0.001*"way" + 0.001*"new" + 0.001*"go" + 0.001*"play" + 0.001*"peopl" + 0.001*"want"
+Topic 4: 0.001*"new" + 0.001*"california" + 0.001*"presid" + 0.001*"time" + 0.001*"peopl" + 0.001*"year" + 0.001*"break" + 0.001*"southern" + 0.001*"credit" + 0.001*"los"
+Topic 5: 0.001*"new" + 0.001*"peopl" + 0.001*"break" + 0.001*"california" + 0.001*"learn" + 0.001*"program" + 0.001*"presid" + 0.001*"polic" + 0.001*"compani" + 0.001*"health"
+Topic 6: 0.001*"com" + 0.001*"point" + 0.001*"time" + 0.001*"report" + 0.001*"peopl" + 0.001*"like" + 0.001*"presid" + 0.001*"go" + 0.001*"new" + 0.001*"come"
+Topic 7: 0.018*"compani" + 0.017*"percent" + 0.016*"busi" + 0.015*"market" + 0.014*"year" + 0.013*"news" + 0.012*"new" + 0.012*"world" + 0.010*"product" + 0.009*"invest"
+Topic 8: 0.050*"trump" + 0.021*"presid" + 0.017*"state" + 0.016*"news" + 0.014*"republican" + 0.010*"elect" + 0.009*"democrat" + 0.008*"senat" + 0.008*"report" + 0.008*"unit"
+Topic 9: 0.001*"publish" + 0.001*"compani" + 0.001*"articl" + 0.001*"like" + 0.001*"year" + 0.001*"facebook" + 0.001*"time" + 0.001*"futur" + 0.001*"member" + 0.001*"group"
+Topic 10: 0.001*"california" + 0.001*"year" + 0.001*"break" + 0.001*"presid" + 0.001*"time" + 0.001*"go" + 0.001*"new" + 0.001*"peopl" + 0.001*"member" + 0.001*"credit"
+Topic 11: 0.013*"like" + 0.010*"peopl" + 0.009*"time" + 0.009*"new" + 0.008*"work" + 0.008*"mr" + 0.008*"year" + 0.006*"know" + 0.006*"way" + 0.005*"come"
+Topic 12: 0.001*"time" + 0.001*"california" + 0.001*"year" + 0.001*"game" + 0.001*"night" + 0.001*"new" + 0.001*"like" + 0.001*"come" + 0.001*"presid" + 0.001*"write"
+Topic 13: 0.039*"mr" + 0.013*"year" + 0.009*"ms" + 0.009*"state" + 0.008*"time" + 0.008*"new" + 0.006*"trump" + 0.005*"go" + 0.005*"presid" + 0.005*"like"
+Topic 14: 0.001*"stori" + 0.001*"like" + 0.001*"new" + 0.001*"play" + 0.001*"time" + 0.001*"audienc" + 0.001*"year" + 0.001*"way" + 0.001*"learn" + 0.001*"chang"
+Topic 15: 0.001*"think" + 0.001*"like" + 0.001*"facebook" + 0.001*"peopl" + 0.001*"work" + 0.001*"compani" + 0.001*"video" + 0.001*"year" + 0.001*"time" + 0.001*"new"
+Topic 16: 0.001*"like" + 0.001*"year" + 0.001*"peopl" + 0.001*"futur" + 0.001*"think" + 0.001*"new" + 0.001*"technolog" + 0.001*"time" + 0.001*"go" + 0.001*"compani"
+Topic 17: 0.001*"way" + 0.001*"stori" + 0.001*"new" + 0.001*"chang" + 0.001*"like" + 0.001*"seri" + 0.001*"go" + 0.001*"audienc" + 0.001*"time" + 0.001*"year"
+Topic 18: 0.001*"peopl" + 0.001*"year" + 0.001*"like" + 0.001*"think" + 0.001*"new" + 0.001*"game" + 0.001*"know" + 0.001*"california" + 0.001*"go" + 0.001*"way"
+Topic 19: 0.001*"break" + 0.001*"california" + 0.001*"new" + 0.001*"presid" + 0.001*"stori" + 0.001*"go" + 0.001*"season" + 0.001*"credit" + 0.001*"like" + 0.001*"year"
 
-Topic 1: 0.017*"water" + 0.009*"citi" + 0.008*"resid" + 0.008*"area" + 0.006*"build" + 0.006*"home" + 0.006*"mile" + 0.006*"mr" + 0.006*"town" + 0.005*"park"
-
-Topic 2: 0.012*"islam" + 0.008*"militari" + 0.008*"muslim" + 0.008*"war" + 0.007*"attack" + 0.006*"state" + 0.006*"trump" + 0.006*"forc" + 0.006*"govern" + 0.006*"unit"
-
-Topic 3: 0.007*"book" + 0.006*"love" + 0.005*"women" + 0.005*"life" + 0.005*"music" + 0.005*"like" + 0.005*"stori" + 0.004*"feel" + 0.004*"write" + 0.004*"charact"
-
-Topic 4: 0.020*"gun" + 0.019*"tax" + 0.016*"protest" + 0.012*"mr" + 0.007*"republican" + 0.007*"trump" + 0.007*"senat" + 0.006*"polic" + 0.005*"violenc" + 0.005*"legisl"
-
-Topic 5: 0.010*"court" + 0.008*"law" + 0.007*"feder" + 0.007*"student" + 0.006*"immigr" + 0.006*"school" + 0.006*"justic" + 0.006*"judg" + 0.006*"mr" + 0.005*"case"
-
-Topic 6: 0.061*"mr" + 0.030*"ms" + 0.010*"art" + 0.005*"york" + 0.004*"citi" + 0.004*"work" + 0.004*"new" + 0.004*"design" + 0.004*"music" + 0.003*"hous"
-
-Topic 7: 0.013*"compani" + 0.011*"reuter" + 0.010*"percent" + 0.010*"news" + 0.009*"market" + 0.008*"billion" + 0.007*"busi" + 0.007*"bank" + 0.007*"price" + 0.006*"stock"
-
-Topic 8: 0.015*"car" + 0.009*"space" + 0.009*"mr" + 0.009*"room" + 0.007*"park" + 0.007*"build" + 0.007*"design" + 0.007*"citi" + 0.006*"drive" + 0.006*"price"
-
-Topic 9: 0.022*"film" + 0.016*"mr" + 0.015*"movi" + 0.011*"music" + 0.008*"star" + 0.007*"charact" + 0.007*"play" + 0.007*"ms" + 0.006*"perform" + 0.006*"seri"
-
-Topic 10: 0.029*"california" + 0.023*"los" + 0.021*"angel" + 0.015*"san" + 0.011*"editor" + 0.011*"york" + 0.008*"today" + 0.008*"mr" + 0.008*"time" + 0.006*"new"
-
-Topic 11: 0.022*"polic" + 0.009*"shoot" + 0.009*"offic" + 0.008*"kill" + 0.008*"attack" + 0.007*"arrest" + 0.007*"investig" + 0.006*"victim" + 0.006*"charg" + 0.005*"man"
-
-Topic 12: 0.018*"facebook" + 0.013*"mr" + 0.010*"fox" + 0.008*"twitter" + 0.008*"compani" + 0.007*"sexual" + 0.007*"news" + 0.006*"post" + 0.006*"network" + 0.006*"tweet"
-
-Topic 13: 0.026*"game" + 0.019*"player" + 0.018*"season" + 0.016*"team" + 0.011*"play" + 0.009*"win" + 0.007*"fan" + 0.006*"final" + 0.006*"second" + 0.005*"round"
-
-Topic 14: 0.024*"trump" + 0.014*"clinton" + 0.011*"republican" + 0.008*"democrat" + 0.007*"campaign" + 0.007*"presid" + 0.007*"elect" + 0.007*"vote" + 0.007*"senat" + 0.006*"voter"
-
-Topic 15: 0.010*"studi" + 0.009*"research" + 0.006*"health" + 0.006*"food" + 0.005*"medic" + 0.005*"drug" + 0.005*"univers" + 0.005*"scienc" + 0.004*"human" + 0.004*"women"
-
-Topic 16: 0.021*"mr" + 0.019*"european" + 0.012*"union" + 0.012*"minist" + 0.011*"parti" + 0.010*"vote" + 0.010*"europ" + 0.009*"prime" + 0.007*"trade" + 0.006*"leader"
-
-Topic 17: 0.011*"ms" + 0.010*"famili" + 0.010*"mother" + 0.009*"children" + 0.009*"father" + 0.008*"daughter" + 0.007*"mr" + 0.007*"son" + 0.007*"girl" + 0.007*"school"
-
-Topic 18: 0.033*"russian" + 0.031*"russia" + 0.019*"mr" + 0.012*"intellig" + 0.010*"trump" + 0.008*"offici" + 0.008*"investig" + 0.006*"presid" + 0.006*"agenc" + 0.005*"secur"
-
-Topic 19: 0.016*"practic" + 0.010*"hospit" + 0.010*"game" + 0.007*"california" + 0.007*"season" + 0.007*"updat" + 0.006*"angel" + 0.005*"play" + 0.005*"los" + 0.005*"team"
+Authors
+Atlantic: [(1, 0.10875012464858978), (7, 0.14067014676601375), (8, 0.18599926482896606), (11, 0.4175300344520529), (13, 0.14705019035160263)]
+Breitbart: [(1, 0.2731924005934917), (8, 0.37689343318576757), (13, 0.34991400150939567)]
+Business Insider: [(1, 0.08087457352705688), (7, 0.3742080679438949), (8, 0.15678970808887677), (11, 0.21329078061903026), (13, 0.1748359112530885)]
+Buzzfeed News: [(1, 0.020719256067199505), (7, 0.11587774074620137), (8, 0.1514694445290248), (11, 0.4328217845791814), (13, 0.2791115048717695)]
+CNN: [(11, 0.3551065097187259), (13, 0.6448918462191309)]
+Fox News: [(1, 0.1723217461879092), (8, 0.3799011516308513), (11, 0.196911122386663), (13, 0.2508651493198188)]
+Guardian: [(1, 0.07741067211197308), (7, 0.12765308556807373), (8, 0.06975574775359158), (11, 0.2886286191094665), (13, 0.43655141068366154)]
+Los Angeles Times: [(13, 0.999999747255228)]
+NPR: [(1, 0.07519967015345466), (7, 0.1052365443338872), (8, 0.15124424712781517), (11, 0.49427257447405865), (13, 0.17404671298797192)]
+National Review: [(1, 0.4072499730680655), (7, 0.08082303891262806), (8, 0.2895497590187106), (11, 0.21995323547383328)]
+New Inquiry: [(1, 0.21369632062140212), (7, 0.013453954515743341), (11, 0.7725574685206353)]
+New York Post: [(7, 0.25568774572195957), (8, 0.05033874264189447), (11, 0.047426601049772386), (13, 0.6405207999776257)]
+New York Times: [(7, 0.048894443379238164), (8, 0.04909970914188271), (11, 0.3829076592338849), (13, 0.5190981091411889)]
+Reuters: [(7, 0.5268020705903462), (8, 0.47319760351667955)]
+Talking Points Memo: [(1, 0.2806209615490172), (7, 0.063504823058292), (8, 0.6307619131517669), (11, 0.02511063459684568)]
+Verge: [(1, 0.9999980416448859)]
+Vox: [(1, 0.4367263248855388), (8, 0.09179398447214145), (11, 0.4676710351221586)]
+Washington Post: [(1, 0.11597187344877195), (8, 0.28426712148481753), (11, 0.3601061920905911), (13, 0.2396545433515537)]
 ```
