@@ -1,4 +1,4 @@
-# Topic Modeling with news
+# Author-Topic Modeling with news
 To run this experiment, your need to download the dataset [here](https://components.one/datasets/all-the-news-articles-dataset/), because its size exceed 100 MB and can not be uploaded in GitHub.
 
 Output:
