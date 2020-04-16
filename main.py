@@ -3,15 +3,14 @@ from sqlite3 import connect
 from pickle import load, dump
 from time import time
 
-from nltk import SnowballStemmer, WordNetLemmatizer
-# from nltk import download
-# download('stopwords')
-# download('wordnet')
-
-from gensim.parsing.preprocessing import STOPWORDS
 from gensim.utils import simple_preprocess
+from gensim.models import Phrases
+from gensim.models.phrases import Phraser
+from gensim.parsing.preprocessing import STOPWORDS
 from gensim.corpora import Dictionary
 from gensim.models import TfidfModel, AuthorTopicModel
+
+from nltk import SnowballStemmer, WordNetLemmatizer
 
 import numpy as np
 np.random.seed(59)
@@ -35,6 +34,7 @@ def loadData():
   start_time = time()
 
   try:
+    # Loading if possible
     sources_file = open(SOURCES_FILE, 'rb')
     sources = load(sources_file)
 
@@ -53,21 +53,27 @@ def loadData():
     years = dict()
     news = list()
     for index, row in df.iterrows():
+      # Populating sources
       if row.publication not in sources.keys():
         sources[row.publication] = list()
       sources[row.publication].append(index)
+      # Populating years
       if row.year not in years.keys():
         years[row.year] = list()
       years[row.year] = index
+      # Populating news
       news.append(row.content)
     del df
 
+    # Saving sources to file
     sources_file = open(SOURCES_FILE, 'wb')
     dump(sources, sources_file)
 
+    # Saving years to file
     years_file = open(YEARS_FILE, 'wb')
     dump(years, years_file)
 
+    # Saving news to file
     news_file = open(NEWS_FILE, 'wb')
     dump(news, news_file)
   finally:
@@ -83,6 +89,7 @@ def preProcess(docs):
   start_time = time()
 
   try:
+    # Loading if possible
     f = open(PROCESSED_NEWS_FILE, 'rb')
     processed_docs = load(f)
   except:
@@ -90,16 +97,17 @@ def preProcess(docs):
     stemmer = SnowballStemmer('english')
     lemmatizer = WordNetLemmatizer()
 
-    processed_docs = list()
+    processed_docs = []
     for doc in docs:
-      processed_doc = list()
-      for token in simple_preprocess(doc):
-        if token not in stop_words:
+      processed_doc = []
+      for token in simple_preprocess(doc, deacc=True):
+        if token not in stop_words and len(token) > 2:
           token = lemmatizer.lemmatize(token, pos='v')
-          token = stemmer.stem(token)
+          #token = stemmer.stem(token)
           processed_doc.append(token)
       processed_docs.append(processed_doc)
 
+    # Saving results to file
     f = open(PROCESSED_NEWS_FILE, 'wb')
     dump(processed_docs, f)
   finally:
@@ -113,10 +121,13 @@ def extractDictionary(documents):
   start_time = time()
 
   try:
+    # Loading if possible
     dictionary = Dictionary.load(DICTIONARY_FILE)
   except:
     dictionary = Dictionary(documents)
-    dictionary.filter_extremes(no_below=200, no_above=0.8, keep_n=1000)
+    dictionary.filter_extremes(no_below=200, no_above=0.8, keep_n=4000)
+
+    # Saving to file
     dictionary.save(DICTIONARY_FILE)
 
   printExecutionTime(start_time)
@@ -127,6 +138,7 @@ def extractFeatures(documents, dictionary):
   start_time = time()
   
   try:
+    # Loading if possible
     f = open(TFIDF_FILE, 'rb')
     tfidf_corpus = load(f)
   except:
@@ -134,6 +146,7 @@ def extractFeatures(documents, dictionary):
     tfidf = TfidfModel(bow_corpus)
     tfidf_corpus = tfidf[bow_corpus]
 
+    # Saving to file
     f = open(TFIDF_FILE, 'wb')
     dump(tfidf_corpus, f)
   finally:
@@ -147,14 +160,17 @@ def generateAuthorTopicModel(corpus, dictionary, authors):
   start_time = time()
 
   try:
+    # Loading if possible
     model = AuthorTopicModel.load(MODEL_FILE)
   except:
     model = AuthorTopicModel(
-      corpus.corpus,
+      corpus,
       num_topics=20,
       id2word=dictionary,
       author2doc=authors
     )
+
+    # Saving to file
     model.save(MODEL_FILE)
   
   printExecutionTime(start_time)
@@ -166,9 +182,11 @@ if __name__ == '__main__':
   del news
 
   dictionary = extractDictionary(processed_news)
-  tfidf_corpus = extractFeatures(processed_news, dictionary)
+  tfidf = extractFeatures(processed_news, dictionary)
+  del processed_news
 
-  model = generateAuthorTopicModel(tfidf_corpus, dictionary, sources)
+  model = generateAuthorTopicModel(tfidf.corpus, dictionary, sources)
+  del tfidf
 
   print('Topics')
   for idx, topic in model.print_topics(-1):
